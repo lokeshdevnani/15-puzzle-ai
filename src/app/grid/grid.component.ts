@@ -1,13 +1,13 @@
 import { GameService } from './../game.service';
 import { Block } from './../block.class';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-grid',
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.css']
 })
-export class GridComponent implements OnInit {
+export class GridComponent implements OnInit, AfterViewInit {
 
   blocks: Array<Block>;
   blank: Block;
@@ -38,6 +38,10 @@ export class GridComponent implements OnInit {
     } else {
       this.start();
     }
+  }
+
+  ngAfterViewInit() {
+    this.gameService.triggerMovesSubscription();
   }
 
   start() {

@@ -21,6 +21,11 @@ export class GameService {
                 localStorage.setItem('time', this.time + '');
                 return this.time;
               });
+
+    const moves = localStorage.getItem('moves');
+    if (moves) {
+      this.movesList = JSON.parse(moves);
+    }
    }
 
   updateMoves(block: Block, blank: Block) {
@@ -30,16 +35,22 @@ export class GameService {
        to: {x: blank.x, y: blank.y }
       };
     this.movesList.push(move);
-    this.movesStream.next(this.movesList);
+    this.triggerMovesSubscription();
+    localStorage.setItem('moves', JSON.stringify(this.movesList));
   }
 
   clearMoves() {
     this.movesList = new Array<Object>();
-    this.movesStream.next(this.movesList);
+    this.triggerMovesSubscription();
+    localStorage.setItem('moves', JSON.stringify(this.movesList));
   }
 
   getMovesList() {
     return this.movesStream;
+  }
+
+  triggerMovesSubscription() {
+    this.movesStream.next(this.movesList);
   }
 
   getTimer(fromStore: boolean) {
