@@ -1,0 +1,9 @@
+.main-header {
+    background: #f4b321;
+    padding: 10px 40px;
+    margin-bottom: 40px;
+}
+
+.main-header h1 {
+    font-weight: bold;
+}

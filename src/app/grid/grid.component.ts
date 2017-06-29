@@ -21,12 +21,16 @@ export class GridComponent implements OnInit {
       this.blocks.push(new Block(i + 1, i % 4, Math.floor(i / 4) ));
     }
     this.blank = new Block(0, 3, 3);
-    this.time = 0;
-
-    this.shuffle();
+    this.start();
    }
 
   ngOnInit() {
+  }
+
+  start() {
+    this.shuffle();
+    this.time = 0;
+    this.movesCount = 0;
   }
 
   click(block: Block) {
@@ -47,6 +51,7 @@ export class GridComponent implements OnInit {
 
   shuffle() {
     this.arrange( this.shuffleArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]) );
+    this.movesCount++;
   }
 
   arrange(arr) {
@@ -56,7 +61,6 @@ export class GridComponent implements OnInit {
     }
     this.blank.x = arr[15] % 4;
     this.blank.y = Math.floor(arr[15] / 4);
-    this.movesCount = 0;
   }
 
   // Fisher-Yates (aka Knuth) Shuffle.
