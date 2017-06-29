@@ -1,3 +1,4 @@
+import { GameService } from './game.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -16,7 +17,7 @@ import { MovesListComponent } from './moves-list/moves-list.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [GameService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

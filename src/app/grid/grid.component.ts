@@ -1,3 +1,4 @@
+import { GameService } from './../game.service';
 import { Block } from './../block.class';
 import { Component, OnInit } from '@angular/core';
 
@@ -14,7 +15,9 @@ export class GridComponent implements OnInit {
   time: number;
 
 
-  constructor() {
+  constructor(
+    private gameService: GameService
+  ) {
     let i;
     this.blocks = new Array<Block>();
     for (i = 0; i < 15; i++) {
@@ -31,16 +34,17 @@ export class GridComponent implements OnInit {
     this.shuffle();
     this.time = 0;
     this.movesCount = 0;
+    this.gameService.clearMoves();
   }
 
   click(block: Block) {
-    console.log(block);
     const xdiff = Math.abs(block.x - this.blank.x),
         ydiff = Math.abs(block.y - this.blank.y);
 
     if ( xdiff + ydiff === 1 ) {
-      [block.x, block.y, this.blank.x, this.blank.y] = [this.blank.x, this.blank.y, block.x, block.y];
+      this.gameService.updateMoves(block, this.blank);
       this.movesCount++;
+      [block.x, block.y, this.blank.x, this.blank.y] = [this.blank.x, this.blank.y, block.x, block.y];
     }
   }
 

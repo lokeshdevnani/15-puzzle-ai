@@ -1,6 +1,8 @@
 <section class="moves-list">
   <header>Moves List</header>
   <div class="moves">
-    
+    <ul *ngFor="let move of movesList">
+      <li>Tile {{move.number}} moved from {{move.from.x}}, {{move.from.y}} to {{move.to.x}}, {{move.to.y}}<li>
+    </ul>
   </div>
 </section>
