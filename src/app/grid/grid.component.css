@@ -10,10 +10,12 @@ app-block {
     transition: all 0.3s ease-out;
     box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.5);
     border-radius: 3px;
+    cursor: pointer;
 }
 
 app-block.blank {
     visibility: hidden;
+    cursor: none;
 }
 
 .board {
@@ -37,4 +39,8 @@ button {
     margin-top: 25px;
     border-radius: 5px;
     border: none;   
+}
+
+.shake {
+    background: red;
 }

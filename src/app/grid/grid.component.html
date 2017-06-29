@@ -8,7 +8,7 @@
 <div class="col-md-8">
   <div class="board">
     <div *ngFor="let block of blocks">
-      <app-block [block]="block" (click)="click(block)"
+      <app-block [block]="block" (click)="click(block);"
         [style.left.px]="block.x*130"
         [style.top.px] ="block.y*70"
         ></app-block>

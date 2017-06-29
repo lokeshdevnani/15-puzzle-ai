@@ -1,13 +1,13 @@
 import { GameService } from './../game.service';
 import { Block } from './../block.class';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterContentChecked } from '@angular/core';
 
 @Component({
   selector: 'app-grid',
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.css']
 })
-export class GridComponent implements OnInit, AfterViewInit {
+export class GridComponent implements OnInit, AfterContentChecked {
 
   blocks: Array<Block>;
   blank: Block;
@@ -15,6 +15,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   time: number;
   timeString: string;
   time$;
+  error = false;
 
   constructor(
     private gameService: GameService
@@ -38,9 +39,10 @@ export class GridComponent implements OnInit, AfterViewInit {
     } else {
       this.start();
     }
+    this.gameService.triggerMovesSubscription();
   }
 
-  ngAfterViewInit() {
+  ngAfterContentChecked() {
     this.gameService.triggerMovesSubscription();
   }
 
