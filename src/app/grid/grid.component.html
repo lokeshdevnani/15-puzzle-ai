@@ -9,13 +9,13 @@
   <div class="board">
     <div *ngFor="let block of blocks">
       <app-block [block]="block" (click)="click(block)"
-        [style.left.px]="block.x*100"
-        [style.top.px] ="block.y*100"
+        [style.left.px]="block.x*130"
+        [style.top.px] ="block.y*70"
         ></app-block>
     </div>
     <app-block [block]="blank" class="blank"
-        [style.left.px]="blank.x*100"
-        [style.top.px] ="blank.y*100" 
+        [style.left.px]="blank.x*130"
+        [style.top.px] ="blank.y*70" 
     ></app-block>
   </div>
 </div>

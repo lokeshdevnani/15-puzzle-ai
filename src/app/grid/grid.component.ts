@@ -25,10 +25,19 @@ export class GridComponent implements OnInit {
       this.blocks.push(new Block(i + 1, i % 4, Math.floor(i / 4) ));
     }
     this.blank = new Block(0, 3, 3);
-    this.start();
    }
 
   ngOnInit() {
+    const gameState = this.gameService.getState();
+    if (gameState) {
+      const game = JSON.parse(gameState);
+      this.blocks = game.blocks;
+      this.blank = game.blank;
+      this.movesCount = game.movesCount;
+      this.resetTimer(true);
+    } else {
+      this.start();
+    }
   }
 
   start() {
@@ -36,15 +45,18 @@ export class GridComponent implements OnInit {
     this.time = 0;
     this.movesCount = 0;
     this.gameService.clearMoves();
-    this.resetTimer();
+    this.resetTimer(false);
+    this.storeState();
   }
 
-  resetTimer() {
+  resetTimer(fromStore: boolean) {
      if ( this.time$ !== undefined) {
       this.time$.unsubscribe();
     }
-    this.time$ = this.gameService.getTimer()
-        .subscribe((x) => {
+
+    const time$ = fromStore ? this.gameService.getTimer(true) : this.gameService.getTimer(false);
+
+    this.time$ = time$.subscribe((x) => {
                 this.time = x;
                 const sec = x % 60;
                 x = Math.floor( x / 60 );
@@ -55,6 +67,10 @@ export class GridComponent implements OnInit {
               });
   }
 
+  storeState() {
+    this.gameService.storeState(this.blocks, this.blank, this.movesCount);
+  }
+
   click(block: Block) {
     const xdiff = Math.abs(block.x - this.blank.x),
         ydiff = Math.abs(block.y - this.blank.y);
@@ -63,6 +79,7 @@ export class GridComponent implements OnInit {
       this.gameService.updateMoves(block, this.blank);
       this.movesCount++;
       [block.x, block.y, this.blank.x, this.blank.y] = [this.blank.x, this.blank.y, block.x, block.y];
+      this.storeState();
     }
   }
 
@@ -71,7 +88,8 @@ export class GridComponent implements OnInit {
     this.movesCount = 0;
     this.time = 0;
     this.gameService.clearMoves();
-    this.resetTimer();
+    this.resetTimer(false);
+    this.storeState();
   }
 
 

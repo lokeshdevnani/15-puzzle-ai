@@ -16,7 +16,11 @@ export class GameService {
     this.movesStream = new Subject<Object>();
     this.time = 0;
     this.timer = Observable.timer(0, 1000)
-              .map((x) => this.time = this.time + 1 );
+              .map((x) => {
+                this.time = this.time + 1;
+                localStorage.setItem('time', this.time + '');
+                return this.time;
+              });
    }
 
   updateMoves(block: Block, blank: Block) {
@@ -38,15 +42,25 @@ export class GameService {
     return this.movesStream;
   }
 
-  getTimer() {
-    this.time = 0;
+  getTimer(fromStore: boolean) {
+    if (fromStore) {
+      const time = localStorage.getItem('time');
+        this.time = time ? parseInt(time, 10) : 0;
+    } else {
+      this.time = 0;
+    }
     return this.timer;
   }
 
-  storeState(blocks: Block[], blank: Block) {
+  storeState(blocks: Block[], blank: Block, movesCount: number) {
     localStorage.setItem('board', JSON.stringify({
       blocks: blocks,
-      blank: blank
+      blank: blank,
+      movesCount: movesCount
     }));
+  }
+
+  getState() {
+    return localStorage.getItem('board');
   }
 }
