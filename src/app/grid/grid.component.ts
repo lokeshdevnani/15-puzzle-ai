@@ -13,6 +13,8 @@ export class GridComponent implements OnInit {
   blank: Block;
   movesCount: number;
   time: number;
+  timeString: string;
+  time$;
 
 
   constructor(
@@ -35,6 +37,19 @@ export class GridComponent implements OnInit {
     this.time = 0;
     this.movesCount = 0;
     this.gameService.clearMoves();
+    if ( this.time$ !== undefined) {
+      this.time$.unsubscribe();
+    }
+    this.time$ = this.gameService.getTimer()
+        .subscribe((x) => {
+                this.time = x;
+                const sec = x % 60;
+                x = Math.floor( x / 60 );
+                const min  = x % 60;
+                const hour = Math.floor( x / 60 );
+
+                this.timeString = `${hour}h ${min}m ${sec}s`;
+              });
   }
 
   click(block: Block) {
