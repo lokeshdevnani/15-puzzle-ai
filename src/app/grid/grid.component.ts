@@ -50,6 +50,9 @@ export class GridComponent implements OnInit {
 
   solve() {
     this.arrange([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
+    this.movesCount = 0;
+    this.time = 0;
+    this.gameService.clearMoves();
   }
 
 
