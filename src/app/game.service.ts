@@ -42,4 +42,11 @@ export class GameService {
     this.time = 0;
     return this.timer;
   }
+
+  storeState(blocks: Block[], blank: Block) {
+    localStorage.setItem('board', JSON.stringify({
+      blocks: blocks,
+      blank: blank
+    }));
+  }
 }

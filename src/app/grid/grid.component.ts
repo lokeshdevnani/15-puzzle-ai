@@ -16,7 +16,6 @@ export class GridComponent implements OnInit {
   timeString: string;
   time$;
 
-
   constructor(
     private gameService: GameService
   ) {
@@ -37,7 +36,11 @@ export class GridComponent implements OnInit {
     this.time = 0;
     this.movesCount = 0;
     this.gameService.clearMoves();
-    if ( this.time$ !== undefined) {
+    this.resetTimer();
+  }
+
+  resetTimer() {
+     if ( this.time$ !== undefined) {
       this.time$.unsubscribe();
     }
     this.time$ = this.gameService.getTimer()
@@ -68,6 +71,7 @@ export class GridComponent implements OnInit {
     this.movesCount = 0;
     this.time = 0;
     this.gameService.clearMoves();
+    this.resetTimer();
   }
 
 
@@ -104,5 +108,4 @@ export class GridComponent implements OnInit {
 
     return array;
   }
-
 }
