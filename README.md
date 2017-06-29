@@ -1,4 +1,7 @@
 # Puzzlegame
+# Number-puzzle
+Number Puzzle built using Angular2
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.1.3.
 
