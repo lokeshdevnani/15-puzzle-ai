@@ -1,0 +1,21 @@
+<div class="controls col-md-4">
+  <h5 class="elapsed-time">Time: {{time}}s</h5>
+  <h5 class="moves-count">Moves: {{movesCount}}</h5>
+  <button (click)="start()" class="btn-orange">New Game</button>
+  <button (click)="solve()" class="btn-green">Auto Solve</button>
+  <button (click)="shuffle()" class="btn-pink">Shuffle Game</button>
+</div>
+<div class="col-md-8">
+  <div class="board">
+    <div *ngFor="let block of blocks">
+      <app-block [block]="block" (click)="click(block)"
+        [style.left.px]="block.x*100"
+        [style.top.px] ="block.y*100"
+        ></app-block>
+    </div>
+    <app-block [block]="blank" class="blank"
+        [style.left.px]="blank.x*100"
+        [style.top.px] ="blank.y*100" 
+    ></app-block>
+  </div>
+</div>

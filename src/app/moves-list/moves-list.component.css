@@ -1,0 +1,15 @@
+.moves-list {
+    background-color: white;
+    min-height: 400px;
+    
+}
+
+.moves-list header {
+    background: #CCC;
+    color: black;
+    padding: 10px;
+}
+
+.moves-list .body {
+    padding: 10px;
+}

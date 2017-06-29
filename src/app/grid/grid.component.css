@@ -1,0 +1,37 @@
+app-block {
+    display: block;
+    background: #EEE;
+    color: #000;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    line-height: 80px;
+    position: absolute;
+    transition: all 0.3s ease-out;
+}
+
+app-block.blank {
+    visibility: hidden;
+}
+
+.board {
+    background: #6fb5ca;
+    border: 20px solid #6fb5ca;
+    width: 380px;
+    height: 380px;
+    position: relative;
+    box-sizing: content-box;
+}
+
+h5 {
+    font-weight: bold;
+}
+
+button {
+    min-width: 250px;
+    padding: 10px;
+    color: white;
+    margin-top: 25px;
+    border-radius: 5px;
+    border: none;   
+}
