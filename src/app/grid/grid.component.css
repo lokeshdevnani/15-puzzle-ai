@@ -42,5 +42,16 @@ button {
 }
 
 .shake {
-    background: red;
+    animation: hvr-icon-buzz 0.1s 3;
+}
+
+@keyframes hvr-icon-buzz {
+    0%,20%,40%,60%,80%,100% {
+        -webkit-transform: translateX(-10px);
+        transform: translateX(-10px);
+    }
+    10%,30%,50%,70%,90% {
+        -webkit-transform: translateX(10px);
+        transform: translateX(10px);
+    }
 }

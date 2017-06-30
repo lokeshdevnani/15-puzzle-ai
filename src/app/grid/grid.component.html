@@ -11,6 +11,7 @@
       <app-block [block]="block" (click)="click(block);"
         [style.left.px]="block.x*130"
         [style.top.px] ="block.y*70"
+        [ngClass]="{shake: block.errMove}"
         ></app-block>
     </div>
     <app-block [block]="blank" class="blank"

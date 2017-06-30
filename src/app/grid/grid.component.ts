@@ -77,7 +77,7 @@ export class GridComponent implements OnInit, AfterContentChecked {
     this.gameService.storeState(this.blocks, this.blank, this.movesCount);
   }
 
-  click(block: Block) {
+  click(block: any) {
     const xdiff = Math.abs(block.x - this.blank.x),
         ydiff = Math.abs(block.y - this.blank.y);
 
@@ -86,6 +86,9 @@ export class GridComponent implements OnInit, AfterContentChecked {
       this.movesCount++;
       [block.x, block.y, this.blank.x, this.blank.y] = [this.blank.x, this.blank.y, block.x, block.y];
       this.storeState();
+    } else {
+      block.errMove = true;
+      setTimeout( () => block.errMove = false, 1000);
     }
   }
 
