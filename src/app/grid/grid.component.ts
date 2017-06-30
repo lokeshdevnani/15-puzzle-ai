@@ -1,3 +1,4 @@
+import { Solution } from './../Solution';
 import { GameService } from './../game.service';
 import { Block } from './../block.class';
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
@@ -93,6 +94,10 @@ export class GridComponent implements OnInit, AfterContentChecked {
   }
 
   solve() {
+    Solution.hello();
+  }
+
+  solveFast() {
     this.arrange([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
     this.movesCount = 0;
     this.time = 0;
