@@ -94,7 +94,52 @@ export class GridComponent implements OnInit, AfterContentChecked {
   }
 
   solve() {
-    Solution.hello();
+    const sol = new Solution();
+    sol.input(this.blocks, this.blank, 4);
+    alert('Please wait while the solution is being computed...');
+    const res = sol.solve();
+    if (res === false) {
+      alert('Sorry, No solution found. Perhaps, it requires more computing resources and time.');
+      return;
+    }
+    alert('Solution found..');
+    this.emulate(res.path);
+  }
+
+  emulate(path: string) {
+    console.log(path);
+
+      const fx = (c) => {
+        let x = this.blank.y, y = this.blank.x;
+        if ( c === 'D' ) {
+          y++;
+        } else if ( c === 'U' ) {
+          y--;
+        } else if ( c === 'L' ) {
+          x--;
+        } else if ( c === 'R' ) {
+          x++;
+        }
+
+        let found = -1;
+        for (let i = 0; i < this.blocks.length; i++ ) {
+          if (this.blocks[i].x === x && this.blocks[i].y === y) {
+            found = i;
+          }
+        }
+        if (found > -1) {
+          [this.blocks[found].y, this.blocks[found].x, this.blank.y, this.blank.x] =
+          [this.blank.x, this.blank.y, this.blocks[found].x, this.blocks[found].y];
+        }
+      };
+
+    for ( let p = 0; p < path.length; p++ ) {
+      const ch = path[p];
+
+      setTimeout( function(){
+        fx(ch);
+      }, 300 * p );
+    }
   }
 
   solveFast() {
@@ -109,16 +154,21 @@ export class GridComponent implements OnInit, AfterContentChecked {
 
   shuffle() {
     this.arrange( this.shuffleArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]) );
+    // this.arrange([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0]);
+    // this.arrange([1,0,3,4,5,2,6,8,9,11,7,12,13,10,14,15]);
     this.movesCount++;
   }
 
   arrange(arr) {
-    for (let i = 0; i < 15; i++) {
-      this.blocks[i].x = arr[i] % 4;
-      this.blocks[i].y = Math.floor(arr[i] / 4);
+    for (let i = 0; i < 16; i++) {
+      if ( arr[i] === 0 ) {
+        this.blank.x = i % 4;
+        this.blank.y = Math.floor(i / 4);
+        continue;
+      }
+      this.blocks[ arr[i] - 1 ].x = i % 4;
+      this.blocks[ arr[i] - 1 ].y = Math.floor(i / 4);
     }
-    this.blank.x = arr[15] % 4;
-    this.blank.y = Math.floor(arr[15] / 4);
   }
 
   // Fisher-Yates (aka Knuth) Shuffle.
